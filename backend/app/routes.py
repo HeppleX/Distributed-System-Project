@@ -17,8 +17,16 @@ class LoginAPI(Resource):
         if not student:
             return {"message": "Invalid student ID or password"}, 401
 
+        # 从数据库查询 student_name
+        student_record = session.query(Student).filter_by(student_id=student_id).first()
+        if not student_record:
+            return {"message": "Student not found"}, 404
+
         access_token = create_access_token(identity=student_id)
-        return {"access_token": access_token}, 200
+        return {
+            "access_token": access_token,
+            "student_name": student_record.student_name
+        }, 200
     
 # 获取所有课程信息的 API
 class CourseListAPI(Resource):

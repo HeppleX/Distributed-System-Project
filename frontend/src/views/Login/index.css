@@ -193,15 +193,11 @@ iframe {
     justify-content: center;
     align-items: center;
     padding: 15px;
-    background: #9053c7;
-    background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
-    background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
-    background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
-    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    background-image: url(../../assets/middlesex.jpg);
 }
 
 .wrap-login100 {
-    width: 960px;
+    width: 460px;
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
@@ -212,8 +208,9 @@ iframe {
     display: -ms-flexbox;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    padding: 80px 130px 90px 75px;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 60px;
 }
 
 /*------------------------------------------------------------------
@@ -235,7 +232,7 @@ iframe {
 
 .login100-form-title {
     font-family: Poppins-Bold;
-    font-size: 24px;
+    font-size: 36px;
     color: #333333;
     line-height: 1.2;
     text-align: center;

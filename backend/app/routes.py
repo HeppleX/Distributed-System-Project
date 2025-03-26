@@ -66,7 +66,8 @@ class EnrollAPI(Resource):
 
         # 添加选课记录
         new_enrollment = Enrollment(student_id=current_user,student_name=student.student_name,
-                                    course_id=course_id,course_name=course.course_name,enroll_time=datetime.now())
+                                    course_id=course_id,course_name=course.course_name,
+                                    enroll_time=datetime.now())
         course.current_enrollment += 1
         session.add(new_enrollment)
         session.commit()

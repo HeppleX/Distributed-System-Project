@@ -5,11 +5,11 @@ from sqlalchemy.orm import sessionmaker
 
 
 Base = declarative_base()
-# 创建 MySQL 连接
+# Create MySQL Connection
 DATABASE_URL = "mysql+pymysql://root:root@localhost/course_selection_db"
 engine = create_engine(DATABASE_URL)
 
-# 创建 Session
+# Create Session
 Session = sessionmaker(bind=engine)
 session = Session()
 

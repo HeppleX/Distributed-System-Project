@@ -17,7 +17,7 @@ def create_app():
 
     jwt.init_app(app)
 
-    # 初始化 API 路由
+    # Initialize API routes
     api = Api(app)
     initialize_routes(api)
 

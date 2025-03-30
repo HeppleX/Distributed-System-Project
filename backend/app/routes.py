@@ -5,7 +5,7 @@ from app.models import Student, Course, Enrollment, session
 from app.utils import authenticate_student
 from datetime import datetime
 
-# 用户登录
+# User Login
 class LoginAPI(Resource):
     def post(self):
         # print("test")
@@ -17,7 +17,7 @@ class LoginAPI(Resource):
         if not student:
             return {"message": "Invalid student ID or password"}, 401
 
-        # 从数据库查询 student_name
+        # Check if the student exists
         student_record = session.query(Student).filter_by(student_id=student_id).first()
         if not student_record:
             return {"message": "Student not found"}, 404
@@ -28,7 +28,7 @@ class LoginAPI(Resource):
             "student_name": student_record.student_name
         }, 200
     
-# 获取所有课程信息的 API
+# Search Class Information API
 class CourseListAPI(Resource):
     def get(self):
         courses = session.query(Course).all()
@@ -45,7 +45,7 @@ class CourseListAPI(Resource):
         ]
         return jsonify({"courses": course_list})
     
-# 选课
+# Select Course API
 class EnrollAPI(Resource):
     @jwt_required()
     def post(self):
@@ -57,14 +57,14 @@ class EnrollAPI(Resource):
         if not course or course.total_seats <= course.current_enrollment:
             return {"message": "Course not available or full"}, 400
 
-        # 检查是否已经选过该课程
+        # Check if the course is already selected
         existing_enrollment = session.query(Enrollment).filter_by(student_id=current_user, course_id=course_id).first()
         if existing_enrollment:
             return {"message": "You have already enrolled in this course"}, 400
 
         student = session.query(Student).filter(Student.student_id == current_user).first()
 
-        # 添加选课记录
+        # Create a new enrollment record
         new_enrollment = Enrollment(student_id=current_user,student_name=student.student_name,
                                     course_id=course_id,course_name=course.course_name,
                                     enroll_time=datetime.now())
@@ -74,7 +74,7 @@ class EnrollAPI(Resource):
 
         return {"message": "Course enrolled successfully"}, 200
 
-# 退课
+# Drop Course API
 class DropAPI(Resource):
     @jwt_required()
     def post(self):
@@ -86,7 +86,7 @@ class DropAPI(Resource):
         if not enrollment:
             return {"message": "You are not enrolled in this course"}, 400
 
-        # 删除选课记录
+        # Check if the course is already selected
         course = session.query(Course).filter_by(course_id=course_id).first()
         session.delete(enrollment)
         course.current_enrollment -= 1
@@ -94,7 +94,7 @@ class DropAPI(Resource):
 
         return {"message": "Course dropped successfully"}, 200
 
-# 查看个人课表
+# Get Student Schedule API
 class ScheduleAPI(Resource):
     @jwt_required()
     def get(self):
@@ -108,7 +108,7 @@ class ScheduleAPI(Resource):
 
         return jsonify(schedule)
 
-# 初始化 API 路由
+# Initialize API routes
 def initialize_routes(api):
     api.add_resource(LoginAPI, "/login")
     api.add_resource(EnrollAPI, "/enroll")

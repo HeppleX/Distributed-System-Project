@@ -8,4 +8,4 @@ args = sys.argv
 app = create_app()
 
 if __name__ == "__main__":
-    app.run(debug=True,port=args[1])
+    app.run(debug=True,port=5000)

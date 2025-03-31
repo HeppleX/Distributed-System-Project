@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package server;
+
+service HeartbeatService {
+    rpc CheckStatus(HeartbeatRequest) returns (HeartbeatResponse);
+}
+
+service LoggingService {
+    rpc SendLog(LogRequest) returns (LogResponse);
+}
+
+message HeartbeatRequest {
+    string server_name = 1;
+}
+
+message HeartbeatResponse {
+    bool is_alive = 1;
+}
+
+message LogRequest {
+    string message = 1;
+}
+
+message LogResponse {
+    bool success = 1;
+}

@@ -1,11 +1,11 @@
-from flask import Flask, request, jsonify
+from flask import create_app
 import grpc
 import time
 import threading
 import service_pb2
 import service_pb2_grpc
 
-app = Flask(__name__)
+app = create_app()
 
 # gRPC connections
 heartbeat_channel = grpc.insecure_channel('localhost:50001')
